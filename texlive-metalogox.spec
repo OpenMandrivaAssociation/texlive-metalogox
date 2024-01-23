@@ -1,5 +1,5 @@
 Name:		texlive-metalogox
-Version:	65448
+Version:	69497
 Release:	1
 Summary:	Adjust TeX logos, with font detection
 Group:		Publishing
