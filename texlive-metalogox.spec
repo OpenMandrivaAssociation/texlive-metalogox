@@ -1,43 +1,25 @@
-Name:		texlive-metalogox
-Version:	70491
-Release:	1
+%global tl_name metalogox
+%global tl_revision 77682
+
+Name:		texlive-%{tl_name}
+Epoch:		1
+Version:	1.07
+Release:	%{tl_revision}.1
 Summary:	Adjust TeX logos, with font detection
 Group:		Publishing
 URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/metalogox
 License:	lppl1.3
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/metalogox.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/metalogox.doc.r%{version}.tar.xz
-Source2:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/metalogox.source.r%{version}.tar.xz
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/metalogox.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/metalogox.doc.r%{tl_revision}.tar.xz
+Source2:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/metalogox.source.r%{tl_revision}.tar.xz
 BuildArch:	noarch
-BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+BuildSystem:	texlive
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-This package extends the metalogo package to automatically
-adjust the appearance of the logos TeX, LaTeX, LaTeX2e,
-XeLaTeX, and LuaLaTeX, depending on the font detected or the
-option given to metalogox. Most of the serif and sans fonts
-listed at The LaTeX Font Catalogue are supported. The package
-depends on metalogo, xparse, and etoolbox.
+This package extends the metalogo package to automatically adjust the
+appearance of the logos TeX, LaTeX, LaTeX2e, XeLaTeX, and LuaLaTeX,
+depending on the font detected or the option given to metalogox. Most of
+the serif and sans fonts listed at The LaTeX Font Catalogue are
+supported. The package also supports the hologo and hvlogos packages.
 
-%prep
-%setup -c -a1 -a2
-%autopatch -p1
-
-%build
-
-%install
-rm -rf tlpkg
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -a * %{buildroot}%{_texmfdistdir}
-
-%files
-%doc %{_texmfdistdir}/source/latex/metalogox
-%{_texmfdistdir}/tex/latex/metalogox
-%doc %{_texmfdistdir}/doc/latex/metalogox
-
-%post -p %{_sbindir}/texlive.post
-
-%postun
-[ "$1" -eq 0 ] && %{_sbindir}/texlive.post
